@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="kz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Біздің Отбасы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+        }
+        section {
+            min-height: 100vh;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-in-out;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h1 {
+            font-size: 3em;
+            color: #4a4e69;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: slideIn 1.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .section1 { background: #fef6e4; }
+        .section2 { background: #f3d2c1; }
+        .section3 { background: #8bd3dd; }
+        .section4 { background: #f7e7ce; }
+        .section5 { background: #ffcad4; }
+    </style>
+</head>
+<body>
+    <section class="section1">
+        <h1>Біздің Отбасы</h1>
+        <p>Біз - бірге өткізген әр сәтті бағалайтын тату отбасы. Махаббат, қолдау және күлкі - бізді біріктіретін нәрсе!</p>
+        <img src="WhatsApp Image 2025-03-11 at 09.40.39.jpeg" alt="Біздің отбасы">
+    </section>
+
+    <section class="section2">
+        <h1>Көңілді Сәттер</h1>
+        <p>Біздің күндер әзіл-оспаққа, ойындарға және шытырман оқиғаларға толы. Саяхаттан бастап үйдегі кештерге дейін - біз әрқашан күлетін себеп табамыз!</p>
+        <img src="WhatsApp Image 2025-03-11 at 09.43.33.jpeg" alt="Көңілді сәттер">
+    </section>
+
+    <section class="section3">
+        <h1>Біздің Жетістіктер</h1>
+        <p>Біз бір-бірімізбен мақтанамыз! Мектептегі марапаттардан бастап жұмыстағы жетістіктерге дейін - әр қадам біз үшін маңызды.</p>
+        <img src="WhatsApp Image 2025-03-11 at 09.45.42.jpeg" alt="Біздің жетістіктер">
+    </section>
+
+    <section class="section4">
+        <h1>Сүйкімді Сәттер</h1>
+        <p>Жылы құшақтар, бірге таңғы ас ішу және кешкі әңгімелер - бұл біздің отбасымызды ерекше етеді.</p>
+        <img src="WhatsApp Image 2025-03-13 at 09.05.45.jpeg" alt="Сүйкімді сәттер">
+    </section>
+
+    <section class="section5">
+        <h1>Біздің Махаббатымыз</h1>
+        <p>Махаббат - біздің отбасымыздың негізі. Біз күн сайын бір-бірімізді қолдап, шабыттандырып, қамқорлық жасаймыз.</p>
+        <img src="WhatsApp Image 2025-03-13 at 09.07.00.jpeg" alt="Біздің махаббатымыз">
+    </section>
+
+    <script>
+        // Анимация при прокрутке
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>
