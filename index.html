@@ -1,109 +1,660 @@
 <!DOCTYPE html>
-<html lang="kz">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Біздің Отбасы</title>
+    <title>Наша семья</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            color: #333;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
         }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header:before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: shimmer 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background-color: #f0f0f0;
+            color: #6a11cb;
+        }
+
         section {
+            padding: 5rem 2rem;
             min-height: 100vh;
-            padding: 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2575fc;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title:after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-box {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .family-member {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             text-align: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-in-out;
         }
-        section.visible {
-            opacity: 1;
+
+        .family-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 5px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .family-member:hover .family-photo {
+            transform: scale(1.05);
+            border-color: #2575fc;
+        }
+
+        .moments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .moment-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+        }
+
+        .moment-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .moment-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .moment-card:hover .moment-img {
+            transform: scale(1.1);
+        }
+
+        .moment-card:hover .moment-overlay {
             transform: translateY(0);
         }
-        h1 {
-            font-size: 3em;
-            color: #4a4e69;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-in;
+
+        .achievements-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        p {
-            font-size: 1.2em;
-            max-width: 600px;
-            line-height: 1.6;
+
+        .timeline-line {
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
-        img {
-            max-width: 100%;
-            height: auto;
+
+        .achievement {
+            position: relative;
+            margin-bottom: 3rem;
+            width: calc(50% - 2rem);
+        }
+
+        .achievement:nth-child(odd) {
+            margin-left: auto;
+        }
+
+        .achievement:before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #2575fc;
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .achievement:nth-child(odd):before {
+            left: -3rem;
+        }
+
+        .achievement:nth-child(even):before {
+            right: -3rem;
+        }
+
+        .cute-moments {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .cute-moment {
+            flex-basis: calc(33.333% - 2rem);
+            min-width: 300px;
+            background-color: white;
             border-radius: 15px;
-            margin-top: 20px;
-            animation: slideIn 1.2s ease-out;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
+
+        .cute-moment:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .cute-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .cute-text {
+            padding: 1.5rem;
+        }
+
+        .love-quotes {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .love-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-left: 4px solid #2575fc;
+            background-color: rgba(37, 117, 252, 0.05);
+        }
+
+        .love-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .love-photo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .love-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .animated-heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff6b6b;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        footer {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
-        @keyframes slideIn {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
         }
-        .section1 { background: #fef6e4; }
-        .section2 { background: #f3d2c1; }
-        .section3 { background: #8bd3dd; }
-        .section4 { background: #f7e7ce; }
-        .section5 { background: #ffcad4; }
+
+        .fade-in-active {
+            animation: fadeInUp 1s forwards;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .achievement {
+                width: 100%;
+                margin-left: 2rem !important;
+            }
+
+            .timeline-line {
+                left: 0;
+                transform: none;
+            }
+
+            .achievement:before {
+                left: -1rem !important;
+                right: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <section class="section1">
-        <h1>Біздің Отбасы</h1>
-        <p>Біз - бірге өткізген әр сәтті бағалайтын тату отбасы. Махаббат, қолдау және күлкі - бізді біріктіретін нәрсе!</p>
-        <img src="WhatsApp Image 2025-03-11 at 09.40.39.jpeg" alt="Біздің отбасы">
+    <header class="header">
+        <h1>Наша Любимая Семья</h1>
+        <p>Вместе навсегда</p>
+    </header>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#family">Наша Семья</a></li>
+            <li><a href="#fun">Весёлые Моменты</a></li>
+            <li><a href="#achievements">Достижения</a></li>
+            <li><a href="#cute">Милые Моменты</a></li>
+            <li><a href="#love">Наша Любовь</a></li>
+        </ul>
+    </nav>
+
+    <section id="family" class="family-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Наша Семья</h2>
+            <div class="family-grid">
+                <div class="content-box fade-in">
+                    <div class="family-member">
+                        <img class="family-photo" src="WhatsApp Image 2025-05-08 at 08.51.32 (1).jpeg" alt="Папа">
+                        <h3>Папа</h3>
+                        <p>Глава семьи, заботливый и мудрый</p>
+                    </div>
+                </div>
+                <div class="content-box fade-in">
+                    <div class="family-member">
+                        <img class="family-photo" src="WhatsApp Image 2025-04-29 at 09.57.18.jpeg" alt="Мама">
+                        <h3>Мама</h3>
+                        <p>Сердце нашего дома, любящая и внимательная</p>
+                    </div>
+                </div>
+
+                <div class="content-box fade-in">
+                    <div class="family-member">
+                        <img class="family-photo" src="WhatsApp Image 2025-05-08 at 09.50.03.jpeg" alt="">
+                        <h3>бабушка</h3>
+                        <p>самый тёплый,добрый и родной человек в мире</p>
+                    </div>
+                </div>
+
+                <div class="content-box fade-in">
+                    <div class="family-member">
+                        <img class="family-photo" src="WhatsApp Image 2025-05-08 at 09.57.19.jpeg" alt="">
+                        <h3>сестрёнка</h3>
+                        <p>это маленькое солнце,которое делает каждый день ярче и радостнее</p>
+                    </div>
+                </div>
+
+
+                <div class="content-box fade-in">
+                    <div class="family-member">
+                        <img class="family-photo" src="WhatsApp Image 2025-05-13 at 09.01.24.jpeg" alt="">
+                        <h3>я</h3>
+                        <p>старший брат всегда поддерживает всю семью и подаёт хороший пример свойм поведением и успехами</p>
+                    </div>
+                </div>
+                <div class="content-box fade-in">
+                    <div class="family-member">
+                        <img class="family-photo" src="WhatsApp Image 2025-04-29 at 09.52.37.jpeg" alt="Ребенок">
+                        <h3>Ребенок</h3>
+                        <p>Наше маленькое солнышко и радость</p>
+                    </div>
+                </div>
+            </div>
+            <div class="content-box fade-in">
+                <h3>О нас</h3>
+                <p>Мы - счастливая семья, которая ценит каждый момент, проведенный вместе. Наш дом наполнен смехом, любовью и взаимопониманием. Каждый день мы учимся друг у друга чему-то новому и создаем незабываемые воспоминания.</p>
+            </div>
+        </div>
     </section>
 
-    <section class="section2">
-        <h1>Көңілді Сәттер</h1>
-        <p>Біздің күндер әзіл-оспаққа, ойындарға және шытырман оқиғаларға толы. Саяхаттан бастап үйдегі кештерге дейін - біз әрқашан күлетін себеп табамыз!</p>
-        <img src="WhatsApp Image 2025-03-11 at 09.43.33.jpeg" alt="Көңілді сәттер">
+    <section id="fun" class="fun-section" style="background-color: #f0f7ff;">
+        <div class="container">
+            <h2 class="section-title fade-in">Весёлые Моменты</h2>
+            <div class="moments-grid">
+                <div class="moment-card fade-in">
+                    <img class="moment-img" src="WhatsApp Image 2025-05-08 at 09.23.53.jpeg" alt="семейный прогулка">
+                    <div class="moment-overlay">
+                        <h3>Семейный прогулка</h3>
+                        <p>Незабываемый день на природе</p>
+                    </div>
+                </div>
+                <div class="moment-card fade-in">
+                    <img class="moment-img" src="WhatsApp Image 2025-05-08 at 09.07.44.jpeg" alt="поехать на кафе">
+                    <div class="moment-overlay">
+                        <h3>поехать на кафе</h3>
+                        <p>семейный ужин</p>
+                    </div>
+                </div>
+                <div class="moment-card fade-in">
+                    <img class="moment-img" src="WhatsApp Image 2025-05-08 at 09.06.45.jpeg" alt="Новый год">
+                    <div class="moment-overlay">
+                        <h3>Новогоднее веселье</h3>
+                        <p>Украшение ёлки и обмен подарками</p>
+                    </div>
+                </div>
+                <div class="moment-card fade-in">
+                    <img class="moment-img" src="WhatsApp Image 2025-05-08 at 09.05.36.jpeg" alt="День рождения">
+                    <div class="moment-overlay">
+                        <h3>День рождения</h3>
+                        <p>Праздничный торт и сюрпризы</p>
+                    </div>
+                </div>
+            </div>
+            <div class="content-box fade-in">
+                <h3>Традиции нашей семьи</h3>
+                <p>Мы любим создавать веселые традиции: от воскресных киновечеров до летних походов. Каждая традиция – новый повод для радости и укрепления нашей связи.</p>
+            </div>
+        </div>
     </section>
 
-    <section class="section3">
-        <h1>Біздің Жетістіктер</h1>
-        <p>Біз бір-бірімізбен мақтанамыз! Мектептегі марапаттардан бастап жұмыстағы жетістіктерге дейін - әр қадам біз үшін маңызды.</p>
-        <img src="WhatsApp Image 2025-03-11 at 09.45.42.jpeg" alt="Біздің жетістіктер">
+    <section id="achievements" class="achievements-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Наши Достижения</h2>
+            <div class="achievements-timeline">
+                <div class="timeline-line"></div>
+                <div class="achievement fade-in">
+                    <div class="content-box">
+                        <h3>2010</h3>
+                        <p>Создание нашей семьи - самое важное решение в нашей жизни</p>
+                    </div>
+                </div>
+                <div class="achievement fade-in">
+                    <div class="content-box">
+                        <h3>2011</h3>
+                        <p>Рождение нашего первого ребенка - величайшее счастье</p>
+                    </div>
+                </div>
+
+                <div class="achievement fade-in">
+                    <div class="content-box">
+                        <h3>2025</h3>
+                        <p>Празднование 15 лет вместе - наше крепкое счастье</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="section4">
-        <h1>Сүйкімді Сәттер</h1>
-        <p>Жылы құшақтар, бірге таңғы ас ішу және кешкі әңгімелер - бұл біздің отбасымызды ерекше етеді.</p>
-        <img src="WhatsApp Image 2025-03-13 at 09.05.45.jpeg" alt="Сүйкімді сәттер">
+    <section id="cute" class="cute-section" style="background-color: #fff5f5;">
+        <div class="container">
+            <h2 class="section-title fade-in">Милые Моменты</h2>
+            <div class="cute-moments">
+                <div class="cute-moment fade-in">
+                    <img class="cute-img" src="WhatsApp Image 2025-05-08 at 09.29.01.jpeg" alt="Первые шаги">
+                    <div class="cute-text">
+                        <h3>Первые шаги</h3>
+                        <p>Незабываемый момент, когда наш малыш сделал свои первые самостоятельные шаги</p>
+                    </div>
+                </div>
+                <div class="cute-moment fade-in">
+                    <img class="cute-img" src="https://gsmu.by/upload/images/stories/news2023/azbuka/4/RAX4mFmeIm8.jpg" alt="Семейные объятия">
+                    <div class="cute-text">
+                        <h3>Семейные объятия</h3>
+                        <p>Каждое утро начинается с теплых объятий, которые дарят энергию на весь день</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-box fade-in">
+                <h3>Маленькие радости</h3>
+                <p>Именно эти моменты, которые кажутся такими обычными, в конечном итоге становятся самыми ценными воспоминаниями. Мы стараемся замечать и ценить каждый такой момент.</p>
+            </div>
+        </div>
     </section>
 
-    <section class="section5">
-        <h1>Біздің Махаббатымыз</h1>
-        <p>Махаббат - біздің отбасымыздың негізі. Біз күн сайын бір-бірімізді қолдап, шабыттандырып, қамқорлық жасаймыз.</p>
-        <img src="WhatsApp Image 2025-03-13 at 09.07.00.jpeg" alt="Біздің махаббатымыз">
+    <section id="love" class="love-section" style="background-color: #fdf2f7;">
+        <div class="container">
+            <h2 class="section-title fade-in">Наша Любовь</h2>
+            <div class="love-quotes fade-in">
+                <div class="love-quote">
+                    "Любовь – это когда счастье другого становится важнее твоего собственного"
+                </div>
+                <div class="love-quote">
+                    "Семья – это место, где твое сердце всегда находит покой"
+                </div>
+            </div>
+            <div class="content-box fade-in">
+                <h3>История нашей любви</h3>
+                <p>Наша история началась много лет назад, и с каждым днем наша любовь только крепнет. Вместе мы прошли через многое, и каждое испытание делало нас только сильнее и ближе друг к другу.</p>
+            </div>
+            <div class="love-gallery">
+                <img class="love-photo fade-in" src="https://i.pinimg.com/736x/1f/52/90/1f52901e433c2ea5a5678d9771dcbc33.jpg" alt="Свадьба">
+                <img class="love-photo fade-in" src="https://www.shkolazhizni.ru/img/content/i226/226356_or.jpg" alt="Прогулка в парке">
+            </div>
+        </div>
+
+        <!-- Анимированные сердечки -->
+        <div class="animated-heart" style="top:10%; left:5%;">❤️</div>
+        <div class="animated-heart" style="top:20%; left:80%; animation-delay: 1s;">❤️</div>
+        <div class="animated-heart" style="top:50%; left:15%; animation-delay: 2s;">❤️</div>
+        <div class="animated-heart" style="top:70%; left:90%; animation-delay: 3s;">❤️</div>
+        <div class="animated-heart" style="top:30%; left:40%; animation-delay: 4s;">❤️</div>
     </section>
+
+    <footer>
+        <p>С любовью создано для нашей семьи © 2025</p>
+    </footer>
 
     <script>
-        // Анимация при прокрутке
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.3 });
+        // Анимация элементов при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
 
-        sections.forEach(section => observer.observe(section));
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Создание плавающих сердечек
+            function createFloatingHearts() {
+                const section = document.querySelector('.love-section');
+                for(let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('animated-heart');
+                        heart.innerHTML = '❤️';
+                        heart.style.left = Math.random() * 100 + '%';
+                        heart.style.top = '100%';
+                        heart.style.animationDuration = (3 + Math.random() * 6) + 's';
+                        section.appendChild(heart);
+
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 6000);
+                    }, i * 2000);
+                }
+            }
+
+            // Вызов функции каждые 10 секунд для создания новых сердечек
+            setInterval(createFloatingHearts, 10000);
+            createFloatingHearts();
+        });
     </script>
 </body>
 </html>
